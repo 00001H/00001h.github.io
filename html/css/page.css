@@ -1,0 +1,104 @@
+body{
+    background-color: black;
+    stroke: white;
+    user-select: none;
+}
+#page{
+    color: white;
+    position: absolute;
+}
+w-sentence{
+    display: none;
+}
+.glyph{
+    position: absolute;
+}
+.textunit{
+    position: absolute;
+}
+.word{
+    position: absolute;
+}
+.sentence{
+    position: absolute;
+}
+.line{
+    position: absolute;
+}
+.popup-str{
+    font-size: 1em;
+}
+.popup-wtr{
+    font-size: 1.5em;
+}
+.word-bg-box{
+    background-color: black;
+}
+.box{
+    border: dashed 2px;
+    border-color: white;
+    padding: 5px;
+    margin: 5px;
+    width: fit-content;
+    height: fit-content;
+}
+.box>*{
+    position: relative;
+}
+.nowrap{
+    white-space: nowrap;
+}
+.inline{
+    display: inline-block;
+    vertical-align: top;
+}
+.nowrap>*{
+    display: inline-block;
+}
+w-vr{
+    background-color: white;
+}
+h1{
+    margin: 0;
+}
+.guessbox{
+    font-family: arial;
+    font-size: 2em;
+    align-self: center;
+    background-color: #d4d4d4;
+    margin-left: 30px;
+}
+body{
+    overflow: hidden;
+}
+.drawer .word-bg-box{
+    position: relative;
+    align-self: center;
+    margin-left: 5%;
+}
+.drawer{
+    overflow: hidden;
+    z-index: 999;
+    width: 100%;
+    height: 0;
+    left: 0;
+    bottom: 0;
+    transition: height 0.3s;
+    background-color: #666666;
+    position: absolute;
+    display: flex;
+}
+.popup-box{
+    z-index: 999;
+    margin-left: 14px;
+    min-width: 50px;
+    text-align: center;
+    transition: opacity 0.3s;
+    background-color: white;
+    position: absolute;
+    pointer-events: none;
+}
+.popup-box p{
+    margin: 0;
+    font-family: arial;
+}
