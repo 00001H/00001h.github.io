@@ -4,6 +4,7 @@ let page = null;
 let popup = {};
 let drawer = {};
 let WORDPAD = 0.1;
+let interactive = false;
 function defaultunit(x,un){
     if(typeof(x) === "number"){
         return x+un;
@@ -41,7 +42,7 @@ class Glyph extends Placeable{
         img.classList.add("glyph");
         eresize(img,size,size);
         img.draggable = false;
-        img.src = `../../glyphs/${this.glyph('spc')}.svg`;
+        img.src = `/html/glyphs/${this.glyph('spc')}.svg`;
         return img;
     }
     glyph(orelse=""){
@@ -122,26 +123,28 @@ class Word extends Placeable{
             x += size*(1+WORDPAD);
         }
         let __capthis = this;
-        div.onmouseenter = function(){
-            popup.box.style.setProperty("opacity",1);
-            popup.resettrans();
-            popup.stranssrc = __capthis.parent;
-            popup.wtranssrc = __capthis;
-            popup.trans();
-        };
-        div.onclick = function(){
-            drawer.loadword(__capthis.word());
-            drawer.show();
+        if(interactive){
+            div.onmouseenter = function(){
+                popup.box.style.setProperty("opacity",1);
+                popup.resettrans();
+                popup.stranssrc = __capthis.parent;
+                popup.wtranssrc = __capthis;
+                popup.trans();
+            };
+            div.onclick = function(){
+                drawer.loadword(__capthis.word());
+                drawer.show();
+            }
+            div.onmouseleave = function(){
+                popup.hide();
+            };
         }
-        div.onmouseleave = function(){
-            popup.hide();
-        };
         for(let i=1;i<this.g.length;++i){
             let img = document.createElement("img");
             img.classList.add("line");
             emove(img,size*(i*(1+WORDPAD)-WORDPAD),0);
             eresize(img,size*WORDPAD,size);
-            img.src = `../../glyphs/line.svg`;
+            img.src = `/html/glyphs/line.svg`;
             div.appendChild(img);
         }
         return div;
@@ -318,56 +321,66 @@ class SentenceElement extends HTMLElement{
 }
 onload = function(){
     page = document.getElementById("page");
-
-
-    popup.box = document.createElement("div");
-    popup.box.classList.add("popup-box");
-    popup.box.style.setProperty("opacity",0);
-
-    popup.strans = document.createElement("p");
-    popup.strans.classList.add("popup-str");
-    popup.box.appendChild(popup.strans);
-
-    popup.wtrans = document.createElement("p");
-    popup.wtrans.classList.add("popup-wtr");
-    popup.box.appendChild(popup.wtrans);
-
-    onmousemove = function(e){
-        popup.box.style.setProperty("left",e.pageX+"px");
-        popup.box.style.setProperty("top",e.pageY+"px");
-    }
-    document.body.appendChild(popup.box);
-
-
-    drawer.box = document.createElement("div");
-    drawer.box.classList.add("drawer");
-
-    drawer.wordbox = document.createElement("div");
-    drawer.wordbox.classList.add("word-bg-box");
-    drawer.box.appendChild(drawer.wordbox);
-
-    drawer.wordbox_inner = document.createElement("div");
-    drawer.wordbox_inner.classList.add("word-bb-inner-container");
-    drawer.wordbox_inner.classList.add("box");
-    drawer.wordbox.appendChild(drawer.wordbox_inner);
-    drawer.setword("....");
-    drawer.guessbox = document.createElement("input");
-    drawer.guessbox.type = "text";
-    drawer.guessbox.name = "guessbox";
-    drawer.guessbox.classList.add("guessbox");
-    drawer.guessbox.placeholder = "...";
-    drawer.guessbox.oninput = function(){
-        setguess(drawer.word,drawer.guessbox.value);
-        popup.trans();
-    }
-    onclick = function(e){
-        if(e.target === document.documentElement){
-            drawer.hide();
+    interactive = !page.hasAttribute("noninteractive");
+    if(page.hasAttribute("size")){
+        let size = Number(page.getAttribute("size"));
+        if(!Number.isNaN(size)){
+            WORDSIZE = size;
         }
+        page.removeAttribute("size");
     }
-    drawer.box.appendChild(drawer.guessbox);
+    if(interactive){
+        popup.box = document.createElement("div");
+        popup.box.classList.add("popup-box");
+        popup.box.style.setProperty("opacity",0);
 
-    document.body.appendChild(drawer.box);
+        popup.strans = document.createElement("p");
+        popup.strans.classList.add("popup-str");
+        popup.box.appendChild(popup.strans);
+
+        popup.wtrans = document.createElement("p");
+        popup.wtrans.classList.add("popup-wtr");
+        popup.box.appendChild(popup.wtrans);
+
+        onmousemove = function(e){
+            popup.box.style.setProperty("left",e.pageX+"px");
+            popup.box.style.setProperty("top",e.pageY+"px");
+        }
+        document.body.appendChild(popup.box);
+
+
+        drawer.box = document.createElement("div");
+        drawer.box.classList.add("drawer");
+
+        drawer.wordbox = document.createElement("div");
+        drawer.wordbox.classList.add("word-bg-box");
+        drawer.box.appendChild(drawer.wordbox);
+
+        drawer.wordbox_inner = document.createElement("div");
+        drawer.wordbox_inner.classList.add("word-bb-inner-container");
+        drawer.wordbox_inner.classList.add("box");
+        drawer.wordbox.appendChild(drawer.wordbox_inner);
+        drawer.setword("....");
+        drawer.guessbox = document.createElement("input");
+        drawer.guessbox.type = "text";
+        drawer.guessbox.name = "guessbox";
+        drawer.guessbox.classList.add("guessbox");
+        drawer.guessbox.placeholder = "...";
+        drawer.guessbox.oninput = function(){
+            setguess(drawer.word,drawer.guessbox.value);
+            popup.trans();
+        }
+        onclick = function(e){
+            if(e.target === document.documentElement){
+                drawer.hide();
+            }
+        }
+        drawer.box.appendChild(drawer.guessbox);
+
+        document.body.appendChild(drawer.box);
+    }else{
+        page.removeAttribute("noninteractive");
+    }
     
     var elements = document.getElementsByTagName("*");
     let e;
