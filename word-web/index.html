@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Word Web!</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div id="page">
+            <div id="canvpan">
+                <div id="butbar">
+                    <span id="scalehint">100%</span>
+                    <button tabindex="-1" id="modetoggle">Edit mode</button>
+                    <button tabindex="-1" id="slmenu">Save/load menu</button>
+                </div>
+                <div id="canvbox">
+                    <canvas id="canvas" width="1600" height="900">
+                        Whoops, your browser doesn't support the HTML5 Canvas!
+                    </canvas>
+                </div>
+            </div>
+            <div id="cluepanel"></div>
+        </div>
+        <dialog id="sldiag">
+            <h2>Save/Load</h2>
+            <textarea id="code"></textarea>
+            <div style="margin-left: auto; margin-right: auto; width: fit-content;">
+                <button id="save">Save</button>
+                <button id="load">Load</button>
+                <button id="close">Close</button>
+            </div>
+        </dialog>
+        <script src="index.js"></script>
+    </body>
+</html>

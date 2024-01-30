@@ -1,0 +1,32 @@
+html{
+    background-color: white;
+    margin: 0;
+}
+body{
+    width:50vw;
+    min-height: 96vh;
+    margin: 0;
+    padding: 10px;
+    border-radius: 22px;
+    position: absolute;
+    left: 25vw;
+    top: 2vh;
+    background-color: #a4f9f9;
+    box-sizing: border-box;
+    font-size: larger;
+}
+a:visited{
+    color: LinkText;
+}
+.sectionheader{
+    margin-bottom: 0;
+}
+.box{
+    background-color: #cef9a4;
+    border-radius:12px;
+    padding: 6px;
+}
+p{
+    margin: 0;
+    white-space: pre;
+}

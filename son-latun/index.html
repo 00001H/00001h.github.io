@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div id="main">
+            <div id="mappings"></div>
+            <div id="right-pane">
+                <div id="relex-pane">
+                    <textarea id="relex-input" spellcheck="false" autocomplete="off"></textarea>
+                    <p id="relex-output"></p>
+                </div>
+                <div id="settings">
+                    <div>
+                        <label for="seedbox">Seed</label>
+                        <input id="seedbox" type="text">
+                    </div>
+                    <div>
+                        <label for="wcontp">Continuation probability</label>
+                        <input id="wcontp" type="range" min="1" max="99" step="1" value="50">
+                        <label for="wcontp"><span id="wcontpd"></span>%</label>
+                    </div>
+                    <p>Expected number of syllables: <span id="wexpl"></span></p>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="index.js"></script>
+    </body>
+</html>

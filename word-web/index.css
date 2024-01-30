@@ -1,0 +1,58 @@
+
+html{
+    font-size: 150%;
+}
+html, body, h2{
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+#page{
+    display: flex;
+}
+@media(orientation: portrait){
+    #page{
+        flex-direction: column;
+    }
+}
+#canvpan{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+#butbar{
+    display: flex;
+    height: fit-content;
+}
+#scalehint{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#canvbox{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#canvas{
+    width: 80vw;
+    aspect-ratio: 16/9;
+    margin: auto;
+}
+#cluepanel{
+    background-color: black;
+    left: 80vw;
+    top: 0;
+    min-width: 20vw;
+    height: 100vh;
+    overflow: auto;
+    >p{
+        color: white;
+        display: block;
+        margin: 0;
+    }
+}
+dialog::backdrop{
+    background-color: black;
+    opacity: 50%;
+}

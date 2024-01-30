@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline'">
+        <style>
+            .hide{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="stuff" class="hide">
+            <p>Contents:</p>
+            <textarea id="code"></textarea>
+            <button id="create">Generate permalink</button>
+            <pre id="out"></pre>
+        </div>
+        <script>
+            let loaded = false;
+            function hand(){
+                if(loaded)return;
+                let sp = new URLSearchParams(location.search);
+                if(sp.has("page")){
+                    location.href = `javascript:decodeURI("${encodeURI(encodeURI(sp.get("page")))}")`
+                }else{
+                    document.getElementById("stuff").classList.remove("hide");
+                    document.getElementById("create").addEventListener("click",()=>{
+                        let qs = new URLSearchParams({"page":document.getElementById("code").value});
+                        document.getElementById("out").textContent = location.href+"?"+qs.toString();
+                    });
+                }
+            };
+            addEventListener("load",hand);
+        </script>
+    </body>
+</html>
