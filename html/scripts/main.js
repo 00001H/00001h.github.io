@@ -300,10 +300,10 @@ drawer.loadword = function(word){
     this.guessbox.value = getguess(word);
 }
 drawer.show = function(){
-    this.box.style.setProperty("height","100%");
+    this.box.style.setProperty("visibility","visible");
 }
 drawer.hide = function(){
-    this.box.style.setProperty("height",0);
+    this.box.style.setProperty("visibility","hidden");
 }
 class SentenceElement extends HTMLElement{
     constructor(){
@@ -355,8 +355,12 @@ onload = function(){
         document.body.appendChild(popup.box);
 
 
+        drawer.boxbg = document.createElement("div");
+        drawer.boxbg.classList.add("drawer");
+        document.body.appendChild(drawer.boxbg);
+    
         drawer.box = document.createElement("div");
-        drawer.box.classList.add("drawer");
+        drawer.boxbg.appendChild(drawer.box);
 
         drawer.wordbox = document.createElement("div");
         drawer.wordbox.classList.add("word-bg-box");
@@ -369,6 +373,7 @@ onload = function(){
         drawer.setword("....");
         drawer.guessbox = document.createElement("input");
         drawer.guessbox.type = "text";
+        drawer.guessbox.size = 25;
         drawer.guessbox.name = "guessbox";
         drawer.guessbox.classList.add("guessbox");
         drawer.guessbox.placeholder = "...";
@@ -378,7 +383,10 @@ onload = function(){
                 popup.trans();
             }
         }
+        drawer.box.appendChild(drawer.guessbox);
+
         onkeyup = function(e){
+            if(!e.altKey)return;
             let k = e.key.toLowerCase();
             if(k=='s'){
                 _storeto.setItem("gtrans",savegdata());
@@ -398,9 +406,6 @@ onload = function(){
                 drawer.hide();
             }
         }
-        drawer.box.appendChild(drawer.guessbox);
-
-        document.body.appendChild(drawer.box);
     }else{
         page.removeAttribute("noninteractive");
     }
