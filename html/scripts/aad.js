@@ -1,15 +1,22 @@
 let guess = {};
-function orelse(v,a){
-    if(v === undefined || v === null){
-        return a;
-    }
-    return v;
+export function savegdata(){
+    return JSON.stringify(guess);
+}
+export function trcount(){
+    return Object.keys(guess).length;
+}
+export function loadgdata(d){
+    guess = JSON.parse(d);
 }
 export function getguess(w){
-    return orelse(guess[w],"");
+    return guess[w] ?? "";
 }
 export function setguess(w,g){
-    guess[w] = g;
+    if(g.length === 0){
+        delete guess[w];
+    }else{
+        guess[w] = g;
+    }
 }
 function __lookupword(w){
     if(w in guess){

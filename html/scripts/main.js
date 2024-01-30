@@ -1,5 +1,6 @@
-import {getguess,setguess,aadlookup} from "./aad.js";
+import {getguess,setguess,aadlookup,savegdata,loadgdata, trcount} from "./aad.js";
 let WORDSIZE = 70;
+let PERSISTENT_SAVE = true;
 let page = null;
 let popup = {};
 let drawer = {};
@@ -313,7 +314,7 @@ class SentenceElement extends HTMLElement{
         if(this.hasAttribute("style")){
             div.setAttribute("style",this.getAttribute("style"));
         }
-        let stc = new Sentence(this.textContent);
+        let stc = new Sentence(this.getAttribute("s"));
         let dz = stc.dims(WORDSIZE);
         eresize(div,dz[0],dz[1]);
         stc.place(div,this.pageX,this.pageY,WORDSIZE);
@@ -321,8 +322,12 @@ class SentenceElement extends HTMLElement{
     }
 }
 onload = function(){
+    storeto = (PERSISTENT_SAVE?localStorage:sessionStorage);
     page = document.getElementById("page");
     interactive = !page.hasAttribute("noninteractive");
+    console.log("Interactive: ",interactive);
+    //Do not define earlier, otherwise we initialize before `interactive` is set
+    customElements.define("w-sentence",SentenceElement);
     if(page.hasAttribute("size")){
         let size = Number(page.getAttribute("size"));
         if(!Number.isNaN(size)){
@@ -367,9 +372,26 @@ onload = function(){
         drawer.guessbox.name = "guessbox";
         drawer.guessbox.classList.add("guessbox");
         drawer.guessbox.placeholder = "...";
-        drawer.guessbox.oninput = function(){
-            setguess(drawer.word,drawer.guessbox.value);
-            popup.trans();
+        drawer.guessbox.oninput = function(e){
+            if(!e.altKey){
+                setguess(drawer.word,drawer.guessbox.value);
+                popup.trans();
+            }
+        }
+        onkeyup = function(e){
+            let k = e.key.toLowerCase();
+            if(k=='s'){
+                _storeto.setItem("gtrans",savegdata());
+                console.log("Saved",trcount(),"translation(s)");
+            }else if(k=='l'){
+                let data = _storeto.getItem("gtrans");
+                if(data === null){
+                    console.log("Nothing to load!");
+                }else{
+                    loadgdata(data);
+                    console.log("Loaded",trcount(),"translation(s)");
+                }
+            }
         }
         onclick = function(e){
             if(e.target === page){
@@ -395,6 +417,4 @@ onload = function(){
             e.removeAttribute("p");
         }
     }
-
-    customElements.define("w-sentence",SentenceElement);
 }
