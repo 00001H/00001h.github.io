@@ -322,7 +322,7 @@ class SentenceElement extends HTMLElement{
     }
 }
 onload = function(){
-    storeto = (PERSISTENT_SAVE?localStorage:sessionStorage);
+    let _storeto = (PERSISTENT_SAVE?localStorage:sessionStorage);
     page = document.getElementById("page");
     interactive = !page.hasAttribute("noninteractive");
     console.log("Interactive: ",interactive);
