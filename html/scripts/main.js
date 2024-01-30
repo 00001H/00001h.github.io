@@ -298,7 +298,7 @@ drawer.loadword = function(word){
     this.guessbox.value = getguess(word);
 }
 drawer.show = function(){
-    this.box.style.setProperty("height","40%");
+    this.box.style.setProperty("height","100%");
 }
 drawer.hide = function(){
     this.box.style.setProperty("height",0);
@@ -371,7 +371,7 @@ onload = function(){
             popup.trans();
         }
         onclick = function(e){
-            if(e.target === document.documentElement){
+            if(e.target === page){
                 drawer.hide();
             }
         }
