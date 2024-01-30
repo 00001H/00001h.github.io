@@ -134,6 +134,7 @@ class Word extends Placeable{
             div.onclick = function(){
                 drawer.loadword(__capthis.word());
                 drawer.show();
+                drawer.guessbox.focus();
             }
             div.onmouseleave = function(){
                 popup.hide();
