@@ -1,4 +1,5 @@
-import {getguess,setguess,aadlookup,savegdata,loadgdata, trcount} from "./aad.js";
+import {Game} from "./aad.js";
+let game = new Game();
 let WORDSIZE = 70;
 let PERSISTENT_SAVE = true;
 let page = null;
@@ -112,7 +113,7 @@ class Word extends Placeable{
         return size*(this.g.length*(1+WORDPAD)-WORDPAD);
     }
     trans(){
-        return aadlookup(this.word());
+        return game.getguessrich(this.word());
     }
     make(size){
         let div = document.createElement("div");
@@ -297,7 +298,7 @@ drawer.setword = function(word){
 }
 drawer.loadword = function(word){
     this.setword(word);
-    this.guessbox.value = getguess(word);
+    this.guessbox.value = game.getguess(word);
 }
 drawer.show = function(){
     this.box.style.setProperty("visibility","visible");
@@ -379,7 +380,7 @@ onload = function(){
         drawer.guessbox.placeholder = "...";
         drawer.guessbox.oninput = function(e){
             if(!e.altKey){
-                setguess(drawer.word,drawer.guessbox.value);
+                game.setguess(drawer.word,drawer.guessbox.value);
                 popup.trans();
             }
         }
@@ -389,16 +390,10 @@ onload = function(){
             if(!e.altKey)return;
             let k = e.key.toLowerCase();
             if(k=='s'){
-                _storeto.setItem("gtrans",savegdata());
-                console.log("Saved",trcount(),"translation(s)");
+                game.save(_storeto);
             }else if(k=='l'){
-                let data = _storeto.getItem("gtrans");
-                if(data === null){
-                    console.log("Nothing to load!");
-                }else{
-                    loadgdata(data);
-                    console.log("Loaded",trcount(),"translation(s)");
-                }
+                game.load(_storeto);
+                popup.trans();
             }
         }
         onclick = function(e){
@@ -422,4 +417,5 @@ onload = function(){
             e.removeAttribute("p");
         }
     }
+    game.load(_storeto);
 }
