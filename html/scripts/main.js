@@ -401,6 +401,7 @@ onload = function(){
                 drawer.hide();
             }
         }
+        game.load(_storeto);
     }else{
         page.removeAttribute("noninteractive");
     }
@@ -417,5 +418,4 @@ onload = function(){
             e.removeAttribute("p");
         }
     }
-    game.load(_storeto);
 }
