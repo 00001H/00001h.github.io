@@ -44,7 +44,7 @@ class Glyph extends Placeable{
         img.classList.add("glyph");
         eresize(img,size,size);
         img.draggable = false;
-        img.src = `/html/glyphs/${this.glyph('spc')}.svg`;
+        img.src = `/aa/glyphs/${this.glyph('spc')}.svg`;
         return img;
     }
     glyph(orelse=""){
@@ -147,7 +147,7 @@ class Word extends Placeable{
             img.classList.add("line");
             emove(img,size*(i*(1+WORDPAD)-WORDPAD),0);
             eresize(img,size*WORDPAD,size);
-            img.src = `/html/glyphs/line.svg`;
+            img.src = `/aa/glyphs/line.svg`;
             div.appendChild(img);
         }
         return div;
