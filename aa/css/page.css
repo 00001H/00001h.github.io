@@ -63,8 +63,7 @@ body{
 }
 
 .box{
-    border: dashed 2px;
-    border-color: white;
+    border: dashed white 2px;
     padding: 5px;
     width: fit-content;
     height: fit-content;
@@ -88,16 +87,19 @@ body{
     font-family: arial;
 }
 
-.drawer{
+.sidebar{
     overflow: hidden;
     width: fit-content;
     height: 100%;
     background-color: #666666;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
-.drawer>*{
+.sidebar>*{
     visibility: hidden;
 }
-.drawer .word-bg-box{
+.sidebar .word-bg-box{
     position: relative;
     width: fit-content;
     height: fit-content;
@@ -111,4 +113,100 @@ body{
     background-color: #d4d4d4;
     margin-left: 10px;
     margin-right: 10px;
+    padding: 4px;
+}
+.toolbar-outer{
+    border-top: dashed white 2px;
+    visibility: visible;
+    width: 100%;
+    height: 30px;
+}
+.toolbar{
+    width: fit-content;
+    height: 100%;
+    margin: auto;
+}
+.toolbar .button{
+    display: inline-block;
+    cursor: pointer;
+    height: 100%;
+    aspect-ratio: 1;
+}
+dialog.modal{
+    width: 60%;
+    height: 60%;
+    background-color: black;
+    color: white;
+    padding: 0px;
+    border: 0px;
+}
+dialog.modal>:only-child{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border: solid white 2px;
+}
+dialog.modal::backdrop{
+    backdrop-filter: brightness(25%);
+}
+.tbb{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+.tbbbar{
+    width: 100%;
+    height: fit-content;
+    border-bottom: solid white 2px;
+}
+.tbblabel{
+    width: fit-content;
+    padding: 3px;
+    display: inline-block;
+    font-size: 1.5em;
+}
+.tbblabel.active{
+    background-color: #3f3f3f;
+}
+.tbbbody{
+    width: 100%;
+}
+.menucontent{
+    font-size: 1.3em;
+}
+.menuentry{
+    margin-top: 9px;
+}
+.dictentryouter{
+    padding: 5px;
+    border: dotted white 2px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+.dictentry{
+    display: flex;
+    justify-content: space-between;
+}
+.dict{
+    width: fit-content !important;
+    white-space: normal;
+}
+.dictentry>*{
+    display: inline-block;
+    position: relative;
+}
+.dictguessvcb{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.dictguess{
+    margin: 0;
+    font-size: 2.1em;
+    width: 2em;
 }
