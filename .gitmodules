@@ -1,0 +1,3 @@
+[submodule "aa"]
+	path = aa
+	url = git@github.com:00001H/aa.git
