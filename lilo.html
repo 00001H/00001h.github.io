@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>lilo</title>
+        <style>
+            *{
+                margin: 0;
+            }
+            html{
+                background-color: black;
+                color: white;
+                font-family: monospace;
+            }
+            #main{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+                padding-top: 20vh;
+                box-sizing: border-box;
+            }
+            .display{
+                margin-top: 13px;
+                margin-bottom: 15vh;
+            }
+            label{
+                font-size: x-large;
+            }
+            .display{
+                font-size: xxx-large;
+            }
+            .display>span{
+                position: relative;
+            }
+            #main[data-require-hover="yes"]>.display>:not(:hover)::before{
+                opacity: 0;
+            }
+            .display>span::before{
+                position: absolute;
+                top: 100%;
+                font-size: 60%;
+                pointer-events: none;
+            }
+            .llm::before{
+                content: "lilm";
+            }
+            .llt::before{
+                content: "lilt";
+            }
+            .lfa::before{
+                content: "lifa";
+            }
+            .lfo::before{
+                content: "lifo";
+            }
+            .lbo::before{
+                content: "libo\00000A(fofrtotwtn.fn)";
+            }
+            #hints-box{
+                position: fixed;
+                right: 5px;
+                bottom: 5px;
+                opacity: 30%;
+                transition: 200ms opacity ease-out;
+            }
+            #hints-box:hover{
+                opacity: 100%;
+            }
+            #hints-label{
+                font-size: medium;
+                color: #05c705;
+                user-select: none;
+            }
+            #hints-label:has(+:checked){
+                color: magenta;
+            }
+            #hints{
+                margin-left: 5px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main" data-require-hover="yes">    
+            <label>lilo tkal:</label>
+            <p class="display" id="time"><span class="llm"></span>·<span class="llt"></span>·<span class="lfa"></span> | <span class="lbo"></span></p>
+            <label>diva cino alin lilo, piko jamo:</label>
+            <p class="display" id="ppdd"><span class="llm"></span>·<span class="llt"></span>·<span class="lfa"></span> | <span class="lbo"></span></p>
+        </div>
+        <div id="hints-box">
+            <label id="hints-label" for="hints">alia miku loks ciwa avla sisa?</label><input id="hints" type="checkbox">
+        </div>
+        <script>
+            "use strict";
+            function toRdx(num,rdx){
+                let s = num.toString(rdx).toUpperCase();
+                if(rdx > 10 && rdx < 16){
+                    s = s.replaceAll("ABCDE"[rdx-11],"F");
+                }
+                return s;
+            }
+            function fdivmod(u,v){
+                const quot = Math.floor(u/v);
+                return [quot,u-quot*v];
+            }
+            function cfptsr(u,ilen,dgt,rdx){
+                const flr = Math.floor(u);
+                let ip = toRdx(flr,rdx).padStart(ilen,"0");
+                if(dgt){
+                    u -= flr;
+                    let fct = "";
+                    let v;
+                    while(dgt--){
+                        u *= rdx;
+                        v = Math.floor(u);
+                        fct += toRdx(v,rdx);
+                        u -= v;
+                    }
+                    return `${ip}.${fct}`;
+                }else{
+                    return ip;
+                }
+            }
+            const rate = 1728/1400;
+            const ref = Date.UTC(2025,3,20);
+            let ppdb = Date.UTC(2023,9,3);
+            function drawtime(t,el){
+                const llme = el.getElementsByClassName("llm").item(0);
+                const llte = el.getElementsByClassName("llt").item(0);
+                const lfae = el.getElementsByClassName("lfa").item(0);
+                const lboe = el.getElementsByClassName("lbo").item(0);
+                const sec = (t-ref)/1000;
+                let ltn = sec*rate;
+                let lfa;
+                [lfa,ltn] = fdivmod(ltn,186624);
+                let llt;
+                [llt,lfa] = fdivmod(lfa,20);
+                let llm;
+                [llm,llt] = fdivmod(llt,74);
+                llm += 514;
+                llt += 22;
+                lfa += 3;
+                llme.textContent = cfptsr(llm,3,0,12);
+                llte.textContent = cfptsr(llt,2,0,12);
+                lfae.textContent = cfptsr(lfa,2,0,12);
+                lboe.textContent = cfptsr(ltn,5,1,12);
+            }
+            addEventListener("load",() => {
+                const main = document.getElementById("main");
+                const time = document.getElementById("time");
+                const ppdd = document.getElementById("ppdd");
+                const hints = document.getElementById("hints");
+                hints.addEventListener("change",() => {
+                    main.setAttribute("data-require-hover",hints.checked?"no":"yes");
+                });
+                main.setAttribute("data-require-hover",hints.checked?"no":"yes");
+                function frame(){
+                    const now = Date.now();
+                    while(ppdb<now){
+                        ppdb += 223776000000;
+                    }
+                    drawtime(now,time);
+                    drawtime(ppdb,ppdd);
+                    requestAnimationFrame(frame);
+                }
+                requestAnimationFrame(frame);
+            });
+        </script>
+    </body>
+</html>
