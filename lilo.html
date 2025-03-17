@@ -100,12 +100,15 @@
                 }
                 return s;
             }
+            function floorf(x){
+                return Math.floor(x+1e-8);
+            }
             function fdivmod(u,v){
-                const quot = Math.floor(u/v);
-                return [quot,u-quot*v];
+                const quot = floorf(u/v);
+                return [quot,Math.max(0,u-quot*v)];
             }
             function cfptsr(u,ilen,dgt,rdx){
-                const flr = Math.floor(u);
+                const flr = floorf(u);
                 let ip = toRdx(flr,rdx).padStart(ilen,"0");
                 if(dgt){
                     u -= flr;
@@ -113,7 +116,7 @@
                     let v;
                     while(dgt--){
                         u *= rdx;
-                        v = Math.floor(u);
+                        v = floorf(u);
                         fct += toRdx(v,rdx);
                         u -= v;
                     }
@@ -123,7 +126,7 @@
                 }
             }
             const rate = 1728/1400;
-            const ref = Date.UTC(2025,3,20);
+            const ref = Date.UTC(2025,4,20);
             let ppdb = Date.UTC(2023,9,3);
             function drawtime(t,el){
                 const llme = el.getElementsByClassName("llm").item(0);
@@ -134,13 +137,13 @@
                 let ltn = sec*rate;
                 let lfa;
                 [lfa,ltn] = fdivmod(ltn,186624);
+                lfa += 3;
                 let llt;
                 [llt,lfa] = fdivmod(lfa,20);
+                llt += 22;
                 let llm;
                 [llm,llt] = fdivmod(llt,74);
                 llm += 514;
-                llt += 22;
-                lfa += 3;
                 llme.textContent = cfptsr(llm,3,0,12);
                 llte.textContent = cfptsr(llt,2,0,12);
                 lfae.textContent = cfptsr(lfa,2,0,12);
@@ -157,6 +160,7 @@
                 main.setAttribute("data-require-hover",hints.checked?"no":"yes");
                 function frame(){
                     const now = Date.now();
+                    // const now = Date.UTC(2033,6,22,15,3,6);
                     while(ppdb<now){
                         ppdb += 223776000000;
                     }
