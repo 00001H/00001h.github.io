@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="dark.css">
+        <title>Speaking Ability Calculator</title>
+        <script type="module" src="speaking.js"></script>
+    </head>
+    <body>
+        <h1>Maf's Speaking Ability Calculator</h1>
+        <div id="form">
+            <style>
+                #form{
+                    max-width: 60vw;
+                    display: grid;
+                    grid-template-columns: max-content 1fr;
+                    grid-template-rows: auto;
+                    >label{
+                        grid-column: 1;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    >input{
+                        grid-column: 2;
+                    }
+                }
+            </style>
+            <label for="nspeak"># of other people speaking: <span class="range-display" for="nspeak" data-width="3"></span></label>
+            <input id="nspeak" type="range" min="0" max="30" step="1" value="0">
+            
+            <label for="nlisten"># of audience (not speaking): <span class="range-display" for="nlisten" data-width="3" data-over="over"></span></label>
+            <input id="nlisten" type="range" min="0" max="31" step="1" value="1">
+        </div>
+        <h2 id="proficiency"></h2>
+        <h2 id="situation"></h2>
+        <p id="description"></p>
+    </body>
+</html>
