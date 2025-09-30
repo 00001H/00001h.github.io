@@ -1,6 +1,7 @@
 "use strict";
 const nspeak = document.getElementById("nspeak");
 const nlisten = document.getElementById("nlisten");
+const topic = document.getElementById("topic");
 const proficiency = document.getElementById("proficiency");
 const situation = document.getElementById("situation");
 const description = document.getElementById("description");
@@ -30,19 +31,40 @@ function update() {
     if (sc) {
         if (nc === 0) {
             if (sc === 1) {
-                situation.textContent = "One-on-one discussion";
-                description.textContent = "I can speak pretty well. Sometimes I speak too much, though.";
-                value = 1.0;
+                if (topic.value === "casu") {
+                    situation.textContent = "One-on-one chit chat";
+                    description.textContent = "Less sustainable than fossil fuel.";
+                    value = 0.33;
+                }
+                else {
+                    situation.textContent = "One-on-one discussion";
+                    description.textContent = "I can speak pretty well. Sometimes I speak too much, though.";
+                    value = 1.0;
+                }
             }
             else if (sc <= 8) {
-                situation.textContent = "Group discussion";
-                description.textContent = "Pretty active participation. No stress.";
-                value = 0.85;
+                if (topic.value === "casu") {
+                    situation.textContent = "Small gathering";
+                    description.textContent = "I won't talk much unless asked.";
+                    value = 0.3;
+                }
+                else {
+                    situation.textContent = "Group discussion";
+                    description.textContent = "Pretty active participation. No stress.";
+                    value = 0.85;
+                }
             }
             else {
-                situation.textContent = "Classroom discussion";
-                description.textContent = "Okay participation.";
-                value = 0.85 - (sc - 8) / 110;
+                if (topic.value === "casu") {
+                    situation.textContent = "Medium-to-large gathering";
+                    description.textContent = "Let me just hide in a corner until it's over.";
+                    value = 0.1;
+                }
+                else {
+                    situation.textContent = "Classroom discussion";
+                    description.textContent = "Okay participation.";
+                    value = 0.85 - (sc - 8) / 110;
+                }
             }
         }
         else {
@@ -61,27 +83,54 @@ function update() {
     else {
         if (nc === 0) {
             situation.textContent = "Monologue";
-            description.textContent = "Best performance, and feels great. I can go on non-stop for an hour.";
-            value = 1.3;
+            if (topic.value === "casu") {
+                description.textContent = "I don't even remember when was the last time I had a casual monologue, but I guess it won't be too bad... hopefully...";
+                value = 0.7;
+            }
+            else {
+                description.textContent = "Best performance, and feels great. I can go on non-stop for an hour.";
+                value = 1.3;
+            }
         }
         else if (nc === 1) {
-            situation.textContent = "Explaining to someone";
-            description.textContent = "Feels good, and I'm almost unstoppable.";
-            value = 1.1;
+            if (topic.value === "casu") {
+                situation.textContent = "Sharing my experiences";
+                description.textContent = "I can't hold it for more than 20 minutes, probably.";
+                value = 0.45;
+            }
+            else {
+                situation.textContent = "Explaining to someone";
+                description.textContent = "Feels good, and I'm almost unstoppable.";
+                value = 1.1;
+            }
         }
         else if (nc <= 30) {
-            situation.textContent = "Classroom presentation";
-            description.textContent = "I can articulate myself clearly enough, though I sometimes pause and wonder if the audience understood what I said.";
-            value = 0.93;
+            if (topic.value === "casu") {
+                situation.textContent = "Weirdly casual presentation";
+                description.textContent = "I would never waste such an opportunity discussing unimportant things.";
+                value = NaN;
+            }
+            else {
+                situation.textContent = "Classroom presentation";
+                description.textContent = "I can articulate myself clearly enough, though I sometimes pause and wonder if the audience understood what I said.";
+                value = 0.93;
+            }
         }
         else {
             situation.textContent = "Public speech";
-            description.textContent = "I get way too excited and probably talk faster than I should.";
-            value = 1.28;
+            if (topic.value === "casu") {
+                description.textContent = "I would never waste a public speech opportunity discussing unimportant things.";
+                value = NaN;
+            }
+            else {
+                description.textContent = "I get way too excited and probably talk faster than I should.";
+                value = 1.28;
+            }
         }
     }
     proficiency.textContent = `${(100 * value).toFixed(2)}%`;
 }
 nspeak.addEventListener("input", update);
 nlisten.addEventListener("input", update);
+topic.addEventListener("input", update);
 update();

@@ -20,8 +20,11 @@
                         display: flex;
                         justify-content: space-between;
                     }
-                    >input{
+                    >:is(input,select){
                         grid-column: 2;
+                    }
+                    >select{
+                        width: fit-content;
                     }
                 }
             </style>
@@ -30,6 +33,12 @@
             
             <label for="nlisten"># of audience (not speaking): <span class="range-display" for="nlisten" data-width="3" data-over="over"></span></label>
             <input id="nlisten" type="range" min="0" max="31" step="1" value="1">
+            
+            <label for="topic">Topic type:</label>
+            <select id="topic">
+                <option value="acad">Academic/Technical/Philosophical</option>
+                <option value="casu">Casual</option>
+            </select>
         </div>
         <h2 id="proficiency"></h2>
         <h2 id="situation"></h2>
