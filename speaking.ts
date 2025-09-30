@@ -1,6 +1,6 @@
 const nspeak = document.getElementById("nspeak") as HTMLInputElement;
 const nlisten = document.getElementById("nlisten") as HTMLInputElement;
-const topic = document.getElementById("topic") as HTMLInputElement;
+const topic = document.getElementById("topic") as HTMLSelectElement;
 const proficiency = document.getElementById("proficiency") as HTMLHeadingElement;
 const situation = document.getElementById("situation") as HTMLHeadingElement;
 const description = document.getElementById("description") as HTMLParagraphElement;
